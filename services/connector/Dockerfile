@@ -5,6 +5,7 @@ WORKDIR /connector
 COPY . /connector
 
 RUN pip3 install --trusted-host pypi.python.org -r requirements.txt
+RUN pip install cryptography
 
 EXPOSE 5000
 

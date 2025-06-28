@@ -1,4 +1,4 @@
-version: "2"
+version: "2.4"
 
 services:
   base:
@@ -8,17 +8,27 @@ services:
       dockerfile: client.dockerfile
     ports:
       - 9083:80
+    networks:
+      - dev-network
 
   connector-api:
     restart: always
+    depends_on:
+      - base
     network_mode: service:base
     build:
       context: ./services/connector
       dockerfile: Dockerfile
-  
+
   prediction-api:
     restart: always
+    depends_on:
+      - base
     network_mode: service:base
     build:
       context: ./services/prediction
       dockerfile: Dockerfile
+
+networks:
+  dev-network:
+    external: true
